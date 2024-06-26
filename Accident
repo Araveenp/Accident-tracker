@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        button {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+        }
+        #signupPage, #loginPage {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="mainPage">
+        <h1>Welcome to Our App</h1>
+        <button id="loginButton">Login</button>
+        <button id="signupButton">Sign Up</button>
+    </div>
+
+    <div id="signupPage">
+        <h1>Sign Up</h1>
+        <form id="signupForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <br><br>
+            <button type="submit">Sign Up</button>
+        </form>
+        <button id="backToMainButton">Back</button>
+    </div>
+
+    <script>
+        document.getElementById('loginButton').onclick = function() {
+            alert('Login functionality to be implemented.');
+        };
+
+        document.getElementById('signupButton').onclick = function() {
+            document.getElementById('mainPage').style.display = 'none';
+            document.getElementById('signupPage').style.display = 'block';
+        };
+
+        document.getElementById('backToMainButton').onclick = function() {
+            document.getElementById('signupPage').style.display = 'none';
+            document.getElementById('mainPage').style.display = 'block';
+        };
+
+        document.getElementById('signupForm').onsubmit = function(event) {
+            event.preventDefault();
+            alert('Signup functionality to be implemented.');
+        };
+
+        // Gyroscope simulation (device orientation)
+        window.addEventListener('deviceorientation', function(event) {
+            var alpha = event.alpha;
+            var beta = event.beta;
+            var gamma = event.gamma;
+
+            // Calculate the magnitude of the device's rotation
+            var magnitude = Math.sqrt(alpha * alpha + beta * beta + gamma * gamma);
+
+            // Define a threshold for triggering the alert
+            var THRESHOLD = 30.0;
+
+            if (magnitude > THRESHOLD) {
+                alert('Emergency! Please help.');
+                sendEmergencyAlert();
+            }
+        });
+
+        function sendEmergencyAlert() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+
+                    var message = "Emergency! Please help. Location: " + latitude + ", " + longitude;
+
+                    // Example: Logging the message to the console
+                    // In a real app, you would send this data to your server or emergency contacts
+                    console.log(message);
+                    alert(message);
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+    </script>
+</body>
+</html>
